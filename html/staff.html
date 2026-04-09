@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thủ Kho - Quản Lý Luân Chuyển</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>.hidden { display: none !important; }</style>
+</head>
+<body class="bg-light">
+    <div id="loginArea" class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4 card shadow p-4 border-0">
+                <h3 class="text-center text-dark mb-4">🏢 Quản Lý Trạm (Hub)</h3>
+                <input type="number" id="idIn" class="form-control mb-3" placeholder="Mã Thủ kho">
+                <input type="text" id="nameIn" class="form-control mb-3" placeholder="Họ tên">
+                <button class="btn btn-dark w-100" onclick="login()">Đăng Nhập</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainArea" class="container mt-4 hidden">
+        <div class="d-flex justify-content-between align-items-center bg-white p-3 rounded shadow-sm mb-4 border-start border-4 border-dark">
+            <div>
+                <h4 class="mb-0 text-dark">Kho: <span id="uHubName"></span></h4>
+                <small>Thủ kho: <span id="uName"></span></small>
+            </div>
+            <button class="btn btn-outline-danger btn-sm" onclick="logout()">Thoát</button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 mb-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-primary text-white fw-bold d-flex justify-content-between align-items-center">
+                        <span>📤 Xuất Hàng Đi Tỉnh Khác</span>
+                        <button class="btn btn-sm btn-light" onclick="loadInventory() && loadTruckers()">🔄 Tải lại</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex gap-2 mb-3">
+                            <select id="truckerSelect" class="form-select border-primary">
+                                <option value="">-- Chọn Xe tải đang rảnh (Thuộc kho này) --</option>
+                            </select>
+                            <button class="btn btn-primary text-nowrap" onclick="dispatchTruck()">🚀 Cho xe xuất phát</button>
+                        </div>
+                        <h6 class="text-muted border-bottom pb-2">Hàng đang chờ luân chuyển:</h6>
+                        <div class="list-group mt-2" id="inventoryList">
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5 mb-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-danger text-white fw-bold">📥 Đón Xe Tải Đến Kho</div>
+                    <div class="card-body d-flex flex-column">
+                        <button class="btn btn-outline-danger w-100 mb-3" onclick="loadIncoming()">Tải lại danh sách xe đang đến</button>
+                        <div class="list-group flex-grow-1 overflow-auto" id="incomingList">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
