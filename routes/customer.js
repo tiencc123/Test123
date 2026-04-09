@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/database');
 
-// Hàm "Bọc thép" - Tự động biến undefined thành null để MySQL không báo lỗi
 const clean = (arr) => arr.map(v => v === undefined ? null : v);
 
 router.post('/login-customer', async (req, res) => {

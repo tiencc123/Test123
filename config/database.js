@@ -3,10 +3,10 @@ const mysql = require('mysql2/promise');
 const dbPool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'tien1515', // <--- Thay mật khẩu của bạn
+    password: 'tien1515',
     database: 'logistics',
     waitForConnections: true,
-    connectionLimit: 15, // Hỗ trợ nhiều người truy cập cùng lúc
+    connectionLimit: 15,
     queueLimit: 0
 });
 
