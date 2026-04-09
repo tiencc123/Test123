@@ -32,3 +32,94 @@
                     <div class="card-header bg-primary text-white fw-bold">📦 Lên đơn hàng mới</div>
                     <div class="card-body">
                         <form id="orderForm">
+                            <div class="row mb-2">
+                                <div class="col-8"><input type="text" id="orderName" class="form-control fw-bold" placeholder="Tên đơn (VD: Gửi quà Sinh nhật)" required></div>
+                                <div class="col-4"><input type="number" id="cod" class="form-control" placeholder="Thu hộ COD" value="0"></div>
+                            </div>
+                            <hr>
+                            
+                            <h6 class="text-muted">1. Thông tin Người Nhận</h6>
+                            <div class="row mb-2">
+                                <div class="col"><input type="text" id="recvName" class="form-control" placeholder="Tên người nhận" required></div>
+                                <div class="col"><input type="text" id="recvPhone" class="form-control" placeholder="SĐT người nhận" required></div>
+                            </div>
+                            
+                            <h6 class="text-muted mt-3">2. Nơi Giao Hàng (Đích đến)</h6>
+                            <div class="row mb-3">
+                                <div class="col-5"><input type="text" id="province" class="form-control border-primary" placeholder="Tỉnh/Thành phố (VD: Hà Nội)" required></div>
+                                <div class="col-7"><input type="text" id="addr" class="form-control border-primary" placeholder="Số nhà, đường, phường/xã..." required></div>
+                            </div>
+                            <hr>
+                            
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="text-muted mb-0">3. Hàng hóa bên trong</h6>
+                                <button type="button" class="btn btn-sm btn-outline-success" onclick="addNewItemRow()">+ Thêm món</button>
+                            </div>
+                            <div id="itemsContainer"></div>
+
+                            <button type="submit" class="btn btn-primary w-100 fw-bold mt-3">XÁC NHẬN GỬI ĐƠN</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-dark text-white fw-bold">📋 Đơn hàng liên quan đến bạn</div>
+                    <div class="card-body d-flex flex-column">
+                        <div class="input-group mb-3">
+                            <input type="text" id="searchMyOrders" class="form-control" placeholder="🔍 Tìm theo Tên đơn hàng...">
+                            <button class="btn btn-dark" onclick="loadMyOrders()">TÌM</button>
+                        </div>
+                        
+                        <div class="list-group flex-grow-1 overflow-auto mb-3" id="myOrdersList" style="max-height: 250px;"></div>
+
+                        <div id="trackResult" class="hidden border-top pt-3">
+                            <h6 class="fw-bold text-primary">Mã: <span id="rTracking"></span></h6>
+                            <div class="alert alert-info p-2 mb-3" style="font-size: 0.9rem;">
+                                <b>Người nhận:</b> <span id="rRecv"></span> <br>
+                                <b>Hàng gồm:</b> <span id="rItemsList" class="fw-bold text-dark"></span> <br>
+                                <b>Phí Ship (Hệ thống tính):</b> <span id="rFee" class="text-danger fw-bold"></span>
+                            </div>
+                            <h6 class="fw-bold">Nhật ký hành trình:</h6>
+                            <ul class="timeline mt-3 mb-0" id="logList"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hàm thêm ô nhập hàng hóa
+        function addNewItemRow() {
+            const container = document.getElementById('itemsContainer');
+            const row = document.createElement('div');
+            row.className = 'item-row';
+            row.innerHTML = `
+                <span class="remove-item" onclick="this.parentElement.remove()">✕</span>
+                <input type="text" class="form-control mb-2 mt-2 item-name" placeholder="Tên hàng (VD: Quần áo)" required>
+                <div class="row">
+                    <div class="col-4"><input type="number" class="form-control item-qty" placeholder="SL" value="1" required></div>
+                    <div class="col-4"><input type="number" class="form-control item-weight" placeholder="Kg" required></div>
+                    <div class="col-4">
+                        <select class="form-select item-type">
+                            <option value="Thường">Thường</option>
+                            <option value="Dễ vỡ">Dễ vỡ</option>
+                            <option value="Giá trị cao">Giá trị cao</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            container.appendChild(row);
+        }
+
+        // Tự động thêm 1 dòng hàng hóa khi mới vào trang
+        window.onload = function() {
+            addNewItemRow();
+            // Nơi bạn gọi API để load danh sách đơn hàng lúc khởi động...
+            // loadMyOrders(); 
+        };
+    </script>
+</body>
+</html>
